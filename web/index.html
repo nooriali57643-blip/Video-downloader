@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0b14">
+<title>دانلودر ویدیو | Ali Noori x Claude</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%237c5cff'/%3E%3Cpath d='M32 14v26m0 0-10-10m10 10 10-10M18 50h28' stroke='white' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0b14; --card:rgba(255,255,255,.06); --line:rgba(255,255,255,.12);
+  --txt:#f2f2fa; --mut:#9a9ab5; --a:#7c5cff; --b:#00d4ff; --c:#ff4d8d; --ok:#2ee59d; --err:#ff6b6b;
+  --r:22px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{
+  min-height:100vh; background:var(--bg); color:var(--txt);
+  font-family:'Vazirmatn',system-ui,-apple-system,'Segoe UI',Tahoma,sans-serif;
+  overflow-x:hidden; padding:env(safe-area-inset-top) 16px env(safe-area-inset-bottom);
+}
+/* animated aurora background */
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden}
+.bg i{position:absolute;width:55vmax;height:55vmax;border-radius:50%;filter:blur(90px);opacity:.38;animation:float 18s ease-in-out infinite}
+.bg i:nth-child(1){background:var(--a);top:-20vmax;right:-15vmax}
+.bg i:nth-child(2){background:var(--b);bottom:-25vmax;left:-20vmax;animation-delay:-6s}
+.bg i:nth-child(3){background:var(--c);top:35%;left:30%;width:35vmax;height:35vmax;opacity:.18;animation-delay:-11s}
+@keyframes float{50%{transform:translate(6vmax,-4vmax) scale(1.12)}}
+.bg::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1px);background-size:28px 28px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 75%)}
+
+.wrap{max-width:760px;margin:0 auto;padding:22px 0 40px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+.brand svg{width:40px;height:40px;filter:drop-shadow(0 6px 18px rgba(124,92,255,.55))}
+.brand b{font-weight:800;font-size:15px;letter-spacing:.2px;direction:ltr;unicode-bidi:isolate}
+.brand b em{font-style:normal;background:linear-gradient(90deg,var(--b),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.gear{width:42px;height:42px;border-radius:14px;background:var(--card);border:1px solid var(--line);color:var(--txt);display:grid;place-items:center;cursor:pointer;backdrop-filter:blur(10px);transition:.2s}
+.gear:hover{transform:rotate(60deg);border-color:var(--a)}
+
+.hero{text-align:center;margin:44px 0 26px}
+.hero h1{margin:0;font-size:clamp(30px,7vw,52px);font-weight:800;line-height:1.35}
+.hero h1 span{background:linear-gradient(100deg,var(--a),var(--b) 55%,var(--c));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% auto;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+.hero p{margin:12px auto 0;color:var(--mut);max-width:480px;line-height:2;font-size:14.5px}
+
+.plats{display:flex;justify-content:center;gap:10px;margin:20px 0 0;flex-wrap:wrap}
+.chip{display:flex;align-items:center;gap:7px;padding:7px 14px;border-radius:99px;background:var(--card);border:1px solid var(--line);font-size:13px;color:var(--mut);transition:.25s}
+.chip svg{width:16px;height:16px}
+.chip.on{color:var(--txt);border-color:var(--a);box-shadow:0 0 0 4px rgba(124,92,255,.18)}
+
+.panel{margin-top:26px;padding:18px;border-radius:var(--r);background:var(--card);border:1px solid var(--line);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 30px 80px -30px rgba(0,0,0,.7)}
+.row{display:flex;gap:10px}
+.inp{flex:1;position:relative}
+.inp input{width:100%;height:56px;border-radius:16px;border:1px solid var(--line);background:rgba(0,0,0,.35);color:var(--txt);padding:0 16px 0 16px;font:inherit;font-size:15px;direction:ltr;text-align:left;outline:none;transition:.2s}
+.inp input::placeholder{color:#6d6d88;direction:rtl}
+.inp input:focus{border-color:var(--a);box-shadow:0 0 0 4px rgba(124,92,255,.2)}
+.btn{height:56px;padding:0 22px;border:0;border-radius:16px;font:inherit;font-weight:600;font-size:15px;color:#fff;cursor:pointer;background:linear-gradient(120deg,var(--a),#5b8cff);box-shadow:0 12px 30px -10px rgba(124,92,255,.8);transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.55;pointer-events:none}
+.btn.ghost{background:var(--card);border:1px solid var(--line);box-shadow:none;color:var(--txt)}
+.paste{position:absolute;left:8px;top:8px;height:40px;padding:0 12px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.07);color:var(--mut);font:inherit;font-size:12.5px;cursor:pointer}
+.paste:hover{color:var(--txt)}
+.inp input{padding-left:78px}
+
+.msg{margin-top:14px;padding:12px 14px;border-radius:14px;font-size:13.5px;line-height:1.9;display:none}
+.msg.err{display:block;background:rgba(255,107,107,.12);border:1px solid rgba(255,107,107,.35);color:#ffb3b3}
+.msg.note{display:block;background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.3);color:#a8ecff}
+
+.spin{width:20px;height:20px;border-radius:50%;border:3px solid rgba(255,255,255,.3);border-top-color:#fff;animation:rot .7s linear infinite}
+@keyframes rot{to{transform:rotate(360deg)}}
+
+/* result */
+.result{display:none;margin-top:20px;animation:up .45s cubic-bezier(.2,.8,.2,1)}
+.result.show{display:block}
+@keyframes up{from{opacity:0;transform:translateY(16px)}}
+.vid{display:flex;gap:14px;align-items:stretch}
+.thumb{position:relative;flex:0 0 42%;max-width:240px;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000 center/cover no-repeat;border:1px solid var(--line)}
+.thumb span{position:absolute;bottom:8px;left:8px;background:rgba(0,0,0,.75);padding:2px 8px;border-radius:8px;font-size:12px;direction:ltr}
+.meta{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:6px}
+.meta h3{margin:0;font-size:15px;line-height:1.7;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.meta small{color:var(--mut)}
+.qt{margin:18px 0 8px;font-size:13px;color:var(--mut)}
+.qs{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:10px}
+.q{position:relative;padding:12px 8px;border-radius:16px;border:1px solid var(--line);background:rgba(0,0,0,.28);color:var(--txt);cursor:pointer;font:inherit;text-align:center;transition:.2s}
+.q b{display:block;font-size:19px;direction:ltr}
+.q small{color:var(--mut);font-size:11.5px}
+.q:hover{border-color:rgba(124,92,255,.6)}
+.q.sel{border-color:var(--a);background:linear-gradient(160deg,rgba(124,92,255,.28),rgba(0,212,255,.1));box-shadow:0 0 0 3px rgba(124,92,255,.22)}
+.q.sel::after{content:"✓";position:absolute;top:6px;right:8px;font-size:12px;color:var(--ok)}
+.q i{position:absolute;top:-8px;left:8px;font-style:normal;font-size:10px;padding:2px 7px;border-radius:99px;background:linear-gradient(90deg,var(--c),var(--a));color:#fff}
+.go{margin-top:16px;width:100%}
+
+.prog{display:none;margin-top:16px}
+.prog.show{display:block}
+.bar{height:12px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.bar div{height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--a),var(--b),var(--c));background-size:200% 100%;animation:shine 2.2s linear infinite;transition:width .4s}
+.bar.indet div{width:40%!important;animation:ind 1.2s ease-in-out infinite}
+@keyframes ind{0%{margin-right:-40%}100%{margin-right:100%}}
+.pinfo{display:flex;justify-content:space-between;margin-top:8px;font-size:12.5px;color:var(--mut)}
+.pinfo b{color:var(--txt);direction:ltr}
+
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:26px}
+.f{padding:16px;border-radius:18px;background:var(--card);border:1px solid var(--line);font-size:13px;color:var(--mut);line-height:1.9}
+.f b{display:block;color:var(--txt);font-size:14.5px;margin-bottom:2px}
+.disc{margin-top:22px;font-size:12px;color:#7a7a96;line-height:2;text-align:center}
+footer{margin-top:34px;display:flex;flex-direction:column;align-items:center;gap:10px}
+.badge{display:flex;align-items:center;gap:12px;padding:10px 18px 10px 14px;border-radius:99px;background:linear-gradient(120deg,rgba(124,92,255,.22),rgba(0,212,255,.12));border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(10px);direction:ltr}
+.badge svg{width:34px;height:34px}
+.badge span{font-weight:800;font-size:14px;letter-spacing:.3px}
+.badge span em{font-style:normal;color:var(--mut);font-weight:400;margin:0 3px}
+.badge span u{text-decoration:none;background:linear-gradient(90deg,var(--b),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+footer small{color:var(--mut);font-size:11.5px}
+
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(5,5,12,.7);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal.show{display:flex}
+.sheet{width:100%;max-width:460px;padding:22px;border-radius:24px;background:#14142a;border:1px solid var(--line);animation:up .3s}
+.sheet h3{margin:0 0 6px}
+.sheet p{margin:0 0 14px;color:var(--mut);font-size:13px;line-height:2}
+.sheet .inp input{padding-left:16px}
+.sheet .row{margin-top:14px}
+.sheet .btn{height:48px;flex:1}
+@media(max-width:560px){
+  .vid{flex-direction:column}.thumb{flex:none;max-width:none;width:100%}
+  .row.main{flex-direction:column}.row.main .btn{width:100%}
+  .brand b{font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="bg"><i></i><i></i><i></i></div>
+
+<!-- logo symbol -->
+<svg width="0" height="0" style="position:absolute"><defs>
+  <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c5cff"/><stop offset=".6" stop-color="#00d4ff"/><stop offset="1" stop-color="#ff4d8d"/></linearGradient>
+  <symbol id="logo" viewBox="0 0 64 64"><rect width="64" height="64" rx="18" fill="url(#lg)"/><path d="M14 44 26 20l8 15 5-9 11 18" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="46" cy="18" r="4.5" fill="#fff"/></symbol>
+</defs></svg>
+
+<div class="wrap">
+  <header>
+    <a class="brand" href="#"><svg><use href="#logo"/></svg><b>Ali Noori <em>×</em> Claude</b></a>
+    <button class="gear" id="gear" title="تنظیمات سرور" aria-label="تنظیمات">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </button>
+  </header>
+
+  <section class="hero">
+    <h1>ویدیوهای خودت را <span>با بهترین کیفیت</span> ذخیره کن</h1>
+    <p>لینک ویدیو را از یوتیوب، تیک‌تاک یا اینستاگرام بچسبان، کیفیت را از ۳۶۰ تا ۱۰۸۰ انتخاب کن و دانلود کن.</p>
+    <div class="plats" id="plats">
+      <div class="chip" data-p="youtube"><svg viewBox="0 0 24 24" fill="#ff3d3d"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2C.5 9.1.5 12 .5 12s0 2.9.5 4.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1c.5-1.9.5-4.8.5-4.8s0-2.9-.5-4.8zM9.7 15.5v-7l6 3.5z"/></svg>YouTube</div>
+      <div class="chip" data-p="tiktok"><svg viewBox="0 0 24 24" fill="#25f4ee"><path d="M16.6 2h-3.2v12.4a2.7 2.7 0 1 1-2.7-2.7c.3 0 .6 0 .8.1V8.5a6 6 0 1 0 5.1 5.9V8.8a7.4 7.4 0 0 0 4.3 1.4V7a4.3 4.3 0 0 1-4.3-5z"/></svg>TikTok</div>
+      <div class="chip" data-p="instagram"><svg viewBox="0 0 24 24" fill="none" stroke="#ff4d8d" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#ff4d8d"/></svg>Instagram</div>
+    </div>
+  </section>
+
+  <main class="panel">
+    <div class="row main">
+      <div class="inp">
+        <input id="url" type="url" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="لینک ویدیو را اینجا بچسبانید...">
+        <button class="paste" id="paste" type="button">چسباندن</button>
+      </div>
+      <button class="btn" id="fetch"><span id="fetchTxt">دریافت ویدیو</span></button>
+    </div>
+    <div class="msg" id="msg"></div>
+
+    <section class="result" id="result">
+      <div class="vid">
+        <div class="thumb" id="thumb"><span id="dur"></span></div>
+        <div class="meta"><h3 id="title"></h3><small id="by"></small></div>
+      </div>
+      <div class="qt">کیفیت را انتخاب کنید</div>
+      <div class="qs" id="qs"></div>
+      <button class="btn go" id="go"><span id="goTxt">دانلود</span></button>
+      <div class="prog" id="prog">
+        <div class="bar" id="bar"><div id="fill"></div></div>
+        <div class="pinfo"><span id="pstate">در حال آماده‌سازی...</span><b id="ppct">0%</b></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="feats">
+    <div class="f"><b>⚡ سریع</b>دانلود روی سرور انجام می‌شود و فایل نهایی مستقیم روی گوشی ذخیره می‌شود.</div>
+    <div class="f"><b>🎞 کیفیت دلخواه</b>۳۶۰، ۴۸۰، ۷۲۰ و ۱۰۸۰ و همین‌طور فقط صدا (MP3).</div>
+    <div class="f"><b>📱 مناسب موبایل</b>طراحی شده برای گوشی؛ بدون نیاز به نصب برنامه.</div>
+  </div>
+
+  <p class="disc">این ابزار فقط برای دانلود ویدیوهای خودتان یا ویدیوهایی است که اجازه‌ی دانلودشان را دارید. رعایت قوانین کپی‌رایت و شرایط استفاده‌ی هر پلتفرم بر عهده‌ی کاربر است.</p>
+
+  <footer>
+    <div class="badge"><svg><use href="#logo"/></svg><span>Ali Noori <em>×</em> <u>Claude</u></span></div>
+    <small>این سایت توسط Ali Noori x Claude ساخته شده است</small>
+  </footer>
+</div>
+
+<div class="modal" id="modal">
+  <div class="sheet">
+    <h3>آدرس سرور</h3>
+    <p>آدرس سروری که فایل <code>app.py</code> روی آن اجرا شده را وارد کنید. مثال: <span dir="ltr">https://my-app.onrender.com</span></p>
+    <div class="inp"><input id="api" type="url" placeholder="https://..." spellcheck="false"></div>
+    <div class="row"><button class="btn" id="saveApi">ذخیره</button><button class="btn ghost" id="closeApi">بستن</button></div>
+  </div>
+</div>
+
+<script>
+/* ---- تنظیم: آدرس سرور خودتان را اینجا بگذارید (یا از دکمه‌ی ⚙ در سایت وارد کنید) ---- */
+const DEFAULT_API = "";   // مثال: "https://my-app.onrender.com"
+
+const $ = id => document.getElementById(id);
+const store = {
+  get(k){ try{return localStorage.getItem(k)}catch(e){return null} },
+  set(k,v){ try{localStorage.setItem(k,v)}catch(e){} }
+};
+let API = (store.get("aln_api") || DEFAULT_API || "").replace(/\/+$/,"");
+let info = null, quality = null, busy = false;
+
+const fa = n => String(n).replace(/\d/g, d => "۰۱۲۳۴۵۶۷۸۹"[d]);
+const fmtDur = s => { if(!s) return ""; const h=Math.floor(s/3600), m=Math.floor(s%3600/60), x=Math.floor(s%60);
+  return (h? h+":"+String(m).padStart(2,"0"):m)+":"+String(x).padStart(2,"0"); };
+
+function show(type, text){ const m=$("msg"); m.className="msg "+(type||""); m.textContent=text||""; }
+function detect(u){ return /tiktok\.com/i.test(u)?"tiktok":/instagram\.com|instagr\.am/i.test(u)?"instagram":/youtu/i.test(u)?"youtube":null; }
+function mark(p){ document.querySelectorAll(".chip").forEach(c=>c.classList.toggle("on", c.dataset.p===p)); }
+
+$("url").addEventListener("input", e => mark(detect(e.target.value)));
+$("paste").onclick = async () => {
+  try{ const t = await navigator.clipboard.readText(); if(t){ $("url").value=t.trim(); mark(detect(t)); } }
+  catch(e){ show("note","اجازه‌ی دسترسی به کلیپ‌بورد داده نشد؛ لینک را دستی بچسبانید."); $("url").focus(); }
+};
+$("url").addEventListener("keydown", e => { if(e.key==="Enter") $("fetch").click(); });
+
+async function api(path, opts){
+  if(!API) throw new Error("NOAPI");
+  const r = await fetch(API+path, opts);
+  let d = {}; try{ d = await r.json(); }catch(e){}
+  if(!r.ok) throw new Error(d.error || "خطای سرور ("+r.status+")");
+  return d;
+}
+function apiErr(e){
+  if(e.message==="NOAPI") return "هنوز آدرس سرور تنظیم نشده. روی دکمه‌ی ⚙ بالا بزنید و آدرس سرور را وارد کنید.";
+  if(e instanceof TypeError) return "ارتباط با سرور برقرار نشد. آدرس سرور و روشن بودن آن را بررسی کنید.";
+  return e.message;
+}
+
+$("fetch").onclick = async () => {
+  if(busy) return;
+  const url = $("url").value.trim();
+  if(!/^https?:\/\//i.test(url)){ show("err","یک لینک معتبر وارد کنید (با https:// شروع شود)."); return; }
+  busy = true; show(""); $("result").classList.remove("show"); resetProg();
+  $("fetch").disabled = true; $("fetchTxt").innerHTML = '<div class="spin"></div>';
+  try{
+    info = await api("/api/info?url="+encodeURIComponent(url));
+    renderInfo(info); mark(info.platform);
+  }catch(e){ show("err", apiErr(e)); }
+  busy = false; $("fetch").disabled = false; $("fetchTxt").textContent = "دریافت ویدیو";
+};
+
+function renderInfo(d){
+  $("title").textContent = d.title || "ویدیو";
+  $("by").textContent = d.uploader || "";
+  $("dur").textContent = fmtDur(d.duration);
+  $("dur").style.display = d.duration ? "" : "none";
+  $("thumb").style.backgroundImage = d.thumbnail ? `url("${d.thumbnail}")` : "none";
+  const names = {360:"استاندارد",480:"خوب",720:"HD",1080:"Full HD"};
+  const qs = $("qs"); qs.innerHTML = "";
+  const list = d.qualities.map(h => ({k:String(h), big:h+"p", sub:names[h]||"", tag: h===1080?"بهترین":""}));
+  list.push({k:"audio", big:"MP3", sub:"فقط صدا", tag:""});
+  quality = list.some(x=>x.k==="720") ? "720" : list[0].k;
+  list.forEach(q => {
+    const b = document.createElement("button"); b.type="button"; b.className="q"+(q.k===quality?" sel":"");
+    b.innerHTML = (q.tag?`<i>${q.tag}</i>`:"")+`<b>${q.big}</b><small>${q.sub}</small>`;
+    b.onclick = () => { quality=q.k; qs.querySelectorAll(".q").forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); };
+    qs.appendChild(b);
+  });
+  $("result").classList.add("show");
+}
+
+function resetProg(){ $("prog").classList.remove("show"); $("fill").style.width="0"; $("bar").classList.remove("indet"); $("ppct").textContent="۰٪"; }
+
+$("go").onclick = async () => {
+  if(busy || !info) return;
+  busy = true; show(""); $("go").disabled = true; $("goTxt").innerHTML = '<div class="spin"></div>';
+  $("prog").classList.add("show"); $("bar").classList.add("indet"); $("pstate").textContent = "در صف..."; $("ppct").textContent = "";
+  try{
+    const { job } = await api("/api/prepare", { method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({ url: $("url").value.trim(), quality }) });
+    for(;;){
+      await new Promise(r => setTimeout(r, 900));
+      const p = await api("/api/progress/"+job);
+      if(p.status==="error") throw new Error(p.error || "دانلود ناموفق بود.");
+      if(p.status==="downloading"){
+        $("bar").classList.remove("indet"); $("fill").style.width = p.percent+"%";
+        $("pstate").textContent = "در حال دانلود" + (p.eta ? " · "+fa(p.eta)+" ثانیه مانده" : "");
+        $("ppct").textContent = fa(Math.round(p.percent))+"٪";
+      } else if(p.status==="processing"){
+        $("bar").classList.add("indet"); $("pstate").textContent = "در حال پردازش و ترکیب صدا و تصویر..."; $("ppct").textContent = "";
+      } else if(p.status==="done"){
+        $("bar").classList.remove("indet"); $("fill").style.width="100%"; $("ppct").textContent="۱۰۰٪";
+        $("pstate").textContent = "آماده شد ✓ دانلود شروع می‌شود";
+        const a = document.createElement("a"); a.href = API+"/api/file/"+job; a.rel="noopener"; document.body.appendChild(a); a.click(); a.remove();
+        break;
+      }
+    }
+  }catch(e){ resetProg(); show("err", apiErr(e)); }
+  busy = false; $("go").disabled = false; $("goTxt").textContent = "دانلود";
+};
+
+/* settings modal */
+$("gear").onclick = () => { $("api").value = API; $("modal").classList.add("show"); };
+$("closeApi").onclick = () => $("modal").classList.remove("show");
+$("modal").onclick = e => { if(e.target.id==="modal") $("modal").classList.remove("show"); };
+$("saveApi").onclick = () => { API = $("api").value.trim().replace(/\/+$/,""); store.set("aln_api", API); $("modal").classList.remove("show"); show("note", API ? "آدرس سرور ذخیره شد." : ""); };
+if(!API) show("note","برای شروع، روی ⚙ بالای صفحه بزنید و آدرس سرور را وارد کنید.");
+</script>
+</body>
+</html>
